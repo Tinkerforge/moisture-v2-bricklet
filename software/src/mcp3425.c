@@ -81,7 +81,6 @@ void mcp3425_tick(MCP3425 *mcp3425) {
 				break;
 			}
 
-			//logd("read buffer: %d %d %d\n\r", buffer[0], buffer[1], buffer[2]);
 			int16_t value = (buffer[0] << 8) | buffer[1];
 			logd("value: %d\n\r", value);
 
