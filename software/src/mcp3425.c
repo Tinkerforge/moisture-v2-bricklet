@@ -84,7 +84,7 @@ void mcp3425_tick(MCP3425 *mcp3425) {
 			int16_t value = (buffer[0] << 8) | buffer[1];
 			logd("value: %d\n\r", value);
 
-		} /*__attribute__((fallthrough));*/
+		} __attribute__((fallthrough));
 		case I2C_FIFO_STATE_WRITE_DIRECT_READY:
 		case I2C_FIFO_STATE_IDLE: {
 			i2c_fifo_read_direct(&mcp3425->i2c_fifo, 3);
