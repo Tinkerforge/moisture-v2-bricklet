@@ -92,6 +92,7 @@ void mcp3425_tick(MCP3425 *mcp3425) {
 		}
 
 		default: {
+			// If we end up in a ready state that we don't handle, something went wrong
 			if(state & I2C_FIFO_STATE_READY) {
 				loge("MCP3425 I2C unrecognized ready state : %d\n\r", state);
 				mcp3425_init(mcp3425);
