@@ -25,25 +25,19 @@
 #include "bricklib2/protocols/tfp/tfp.h"
 #include "bricklib2/utility/callback_value.h"
 
-CallbackValue callback_value_moisture;
-
+CallbackValue_uint16_t callback_value_moisture;
 
 BootloaderHandleMessageResponse handle_message(const void *message, void *response) {
 	switch(tfp_get_fid_from_message(message)) {
-		case FID_GET_MOISTURE: return get_callback_value(message, response, &callback_value_moisture);
-		case FID_SET_MOISTURE_CALLBACK_CONFIGURATION: return set_callback_value_callback_configuration(message, &callback_value_moisture);
-		case FID_GET_MOISTURE_CALLBACK_CONFIGURATION: return get_callback_value_callback_configuration(message, response, &callback_value_moisture);
+		case FID_GET_MOISTURE: return get_callback_value_uint16_t(message, response, &callback_value_moisture);
+		case FID_SET_MOISTURE_CALLBACK_CONFIGURATION: return set_callback_value_callback_configuration_uint16_t(message, &callback_value_moisture);
+		case FID_GET_MOISTURE_CALLBACK_CONFIGURATION: return get_callback_value_callback_configuration_uint16_t(message, response, &callback_value_moisture);
 		default: return HANDLE_MESSAGE_RESPONSE_NOT_SUPPORTED;
 	}
 }
 
-
-
-
-
-
 bool handle_moisture_callback(void) {
-	return handle_callback_value_callback(&callback_value_moisture, FID_CALLBACK_MOISTURE);
+	return handle_callback_value_callback_uint16_t(&callback_value_moisture, FID_CALLBACK_MOISTURE);
 }
 
 void communication_tick(void) {
@@ -52,7 +46,7 @@ void communication_tick(void) {
 
 void communication_init(void) {
 	// TODO: Add proper functions
-	callback_value_init(&callback_value_moisture, NULL);;
+	callback_value_init_uint16_t(&callback_value_moisture, NULL);;
 
 	communication_callback_init();
 }
